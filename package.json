@@ -1,0 +1,16 @@
+{
+  "name": "lambda-reservation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FullOfOrange/lambda-reservation.git",
+  "author": "육진혁 (Ivan) <ivan@daangn.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.15.7",
+    "serverless-esbuild": "^1.32.8",
+    "serverless-offline": "^10.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
