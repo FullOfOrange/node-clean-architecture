@@ -1,25 +1,27 @@
 import '../core/index'
 
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {container} from "tsyringe";
+import {container, inject, injectable} from "tsyringe";
 import {TicketFinder} from "../core/application/TicketFinder";
 
-export const hello = async (
-    event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+@injectable()
+class Handler {
 
-    const ticketFinder: TicketFinder = container.resolve("TicketFinder");
-    const ticket = await ticketFinder.findById(1)
+    constructor(
+        @inject("TicketFinder")
+        private ticketFinder: TicketFinder
+    ) {
+    }
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(
-            {
-                message: "Go Serverless v3.0! Your function executed successfully!",
-                input: event,
-            },
-            null,
-            2
-        ),
-    };
-};
+    public async hello(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+        const ticket = await this.ticketFinder.findById(1);
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(ticket),
+        };
+    }
+}
+
+export const handler = container.resolve(Handler)
+export const hello = handler.hello.bind(handler)
