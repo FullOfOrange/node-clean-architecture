@@ -1,5 +1,5 @@
 import {container} from "tsyringe";
-import {TicketService} from "./application/TicketService"
+import {TicketService} from "./application/ticket/TicketService"
 
 // Bean configurations
 export const applicationConfiguration = () => {

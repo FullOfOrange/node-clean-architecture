@@ -1,6 +1,6 @@
 import {TicketFinder} from "./TicketFinder";
-import {Ticket} from "../domain/ticket/Ticket";
-import {TicketRepository} from "../domain/ticket/TicketRepository";
+import {Ticket} from "../../domain/ticket/Ticket";
+import {TicketRepository} from "../../domain/ticket/TicketRepository";
 import {inject, injectable} from "tsyringe";
 import {Transactional} from "typeorm-transactional-cls-hooked";
 
