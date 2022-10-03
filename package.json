@@ -3,24 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/FullOfOrange/lambda-reservation.git",
-  "author": "육진혁 (Ivan) <ivan@daangn.com>",
+  "author": "육진혁 <foorgdev@gmail.com>",
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
-    "serverless": "^3.22.0",
-    "serverless-offline": "^10.0.1",
+    "@types/aws-lambda": "^8.10.106",
+    "serverless": "^3.21.0",
+    "serverless-offline": "^9.1.6",
     "serverless-plugin-typescript": "^2.1.2",
     "typescript": "^4.8.4"
   },
-  "dependencies": {
-    "dotenv": "^16.0.3",
-    "mysql2": "^2.3.3",
-    "reflect-metadata": "^0.1.13",
-    "typedi": "^0.10.0",
-    "typeorm": "^0.3.10",
-    "typeorm-typedi-extensions": "^0.4.1"
-  },
   "scripts": {
-    "debug": "SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless offline",
-    "local": "sls offline --noTimeout"
+    "local": "sls offline"
   }
 }

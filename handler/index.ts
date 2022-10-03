@@ -1,16 +1,17 @@
-// import '../core/index'
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import {Container} from "typedi";
-import {TicketFinder} from "../core/application/TicketFinder";
-
-export const hello = () => {
-
-  // console.log(Container)
-  //
-  // const ticketFinder: TicketFinder = Container.get("TicketFinder")
-  // const ticket = await ticketFinder.findById(1)
-
-  // console.log(ticket)
-
-  return 200
-}  
+export const hello = async (
+    event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+    return {
+        statusCode: 200,
+        body: JSON.stringify(
+            {
+                message: "Go Serverless v3.0! Your function executed successfully!",
+                input: event,
+            },
+            null,
+            2
+        ),
+    };
+};

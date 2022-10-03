@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
     "sourceMap": true,
-  },
-  "include": ["handler/**/*", "core/**/*"]
+    "allowJs": true,
+    "target": "es5",
+    "outDir": ".build",
+    "moduleResolution": "node",
+    "lib": [
+      "es2015"
+    ],
+    "rootDir": "./"
+  }
 }
