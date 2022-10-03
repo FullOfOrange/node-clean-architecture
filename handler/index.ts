@@ -1,4 +1,4 @@
-import '../core/index'
+import '../core/configuration'
 
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {container, inject, injectable} from "tsyringe";

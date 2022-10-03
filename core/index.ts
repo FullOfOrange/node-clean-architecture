@@ -1,12 +1,7 @@
 import 'reflect-metadata'
 
-import './data'
+import {applicationConfiguration} from "./configuration";
+import {dataConfiguration} from "./data/configuration";
 
-import {TicketService} from "./application/TicketService"
-import {container} from "tsyringe";
-
-const configurations = () => {
-    container.register("TicketFinder", {useClass: TicketService});
-}
-
-configurations()
+dataConfiguration()
+applicationConfiguration()
