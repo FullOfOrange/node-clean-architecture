@@ -8,8 +8,7 @@ import {TicketFinder} from "../domain/application/TicketFinder";
 class Handler {
 
     constructor(
-        @inject("TicketFinder")
-        private ticketFinder: TicketFinder
+        @inject("TicketFinder") private ticketFinder: TicketFinder
     ) {
     }
 

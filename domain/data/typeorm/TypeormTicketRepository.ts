@@ -1,8 +1,8 @@
 import {TicketRepository} from "../../domain/ticket/TicketRepository";
 import {Ticket} from "../../domain/ticket/Ticket";
-import {autoInjectable} from "tsyringe";
+import {injectable} from "tsyringe";
 
-@autoInjectable()
+@injectable()
 export class TypeormTicketRepository implements TicketRepository {
 
     findById(id: number): Promise<Ticket> {
