@@ -5,7 +5,10 @@
   "repository": "https://github.com/FullOfOrange/lambda-reservation.git",
   "author": "육진혁 <foorgdev@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.7.0"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.106",
     "serverless": "^3.21.0",

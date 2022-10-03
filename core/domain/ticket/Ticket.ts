@@ -8,11 +8,11 @@ export class Ticket {
     deletedAt?: Date
 
     constructor(name: string, limit: number, createdAt: Date, updatedAt: Date) {
-        this.id = null
+        this.id = undefined
         this.name = name
         this.limit = limit
         this.createdAt = createdAt
         this.updatedAt = updatedAt
-        this.deletedAt = null
+        this.deletedAt = undefined
     }
 }

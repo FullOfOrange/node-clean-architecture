@@ -1,12 +1,13 @@
 import {TicketFinder} from "./TicketFinder";
-import {Service} from "typedi";
 import {Ticket} from "../domain/ticket/Ticket";
 import {TicketRepository} from "../domain/ticket/TicketRepository";
+import {inject, singleton} from "tsyringe";
 
-@Service({name: "TicketFinder"})
-class TicketService implements TicketFinder {
+@singleton()
+export class TicketService implements TicketFinder {
 
     constructor(
+        @inject("TicketRepository")
         private ticketRepository: TicketRepository
     ) {
     }
