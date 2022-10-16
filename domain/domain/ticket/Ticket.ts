@@ -1,18 +1,28 @@
+import {BigIntType, Entity, PrimaryKey, Property} from "@mikro-orm/core";
+
+@Entity()
 export class Ticket {
 
-    id?: number
-    name: string
-    limit: number
-    createdAt: Date
-    updatedAt: Date
-    deletedAt?: Date
+    @PrimaryKey({type: BigIntType})
+    id: String
 
-    constructor(name: string, limit: number, createdAt: Date, updatedAt: Date) {
-        this.id = undefined
+    @Property()
+    name: string
+
+    @Property()
+    limit: number
+
+    @Property()
+    createdAt: Date = new Date()
+
+    @Property()
+    updatedAt: Date = new Date()
+
+    @Property({nullable: true})
+    deletedAt?: Date = undefined
+
+    constructor(name: string, limit: number) {
         this.name = name
         this.limit = limit
-        this.createdAt = createdAt
-        this.updatedAt = updatedAt
-        this.deletedAt = undefined
     }
 }

@@ -2,7 +2,7 @@ import '../domain/configuration'
 
 import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
 import {container, inject, injectable} from "tsyringe";
-import {TicketFinder} from "../domain/application/ticket/TicketFinder";
+import {TicketFinder} from "../../domain/application/ticket/TicketFinder";
 
 @injectable()
 class Handler {

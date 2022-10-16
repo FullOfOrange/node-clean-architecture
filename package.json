@@ -7,11 +7,13 @@
   "license": "MIT",
   "dependencies": {
     "@mikro-orm/core": "^5.4.2",
+    "@mikro-orm/migrations": "^5.4.2",
     "@mikro-orm/mysql": "^5.4.2",
+    "@vendia/serverless-express": "^4.10.1",
+    "express": "^4.18.2",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
-    "tsyringe": "^4.7.0",
-    "typeorm-transactional-cls-hooked": "^0.1.21"
+    "tsyringe": "^4.7.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.106",
