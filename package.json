@@ -1,29 +1,79 @@
 {
-  "name": "lambda-reservation",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/FullOfOrange/lambda-reservation.git",
-  "author": "육진혁 <foorgdev@gmail.com>",
-  "license": "MIT",
+  "name": "reservation",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "prettier --write \\\"src/**/*.ts\\\" \\\"test/**/*.ts\\\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config test/jest-e2e.json"
+  },
   "dependencies": {
     "@mikro-orm/core": "^5.4.2",
-    "@mikro-orm/migrations": "^5.4.2",
     "@mikro-orm/mysql": "^5.4.2",
+    "@mikro-orm/nestjs": "^5.1.2",
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0",
     "@vendia/serverless-express": "^4.10.1",
-    "express": "^4.18.2",
-    "mysql2": "^2.3.3",
+    "aws-lambda": "^1.0.7",
     "reflect-metadata": "^0.1.13",
-    "tsyringe": "^4.7.0"
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.106",
-    "serverless": "^3.21.0",
-    "serverless-offline": "^9.1.6",
-    "serverless-plugin-typescript": "^2.1.2",
-    "typescript": "^4.8.4"
+    "@nestjs/cli": "^8.0.0",
+    "@nestjs/schematics": "^8.0.0",
+    "@nestjs/testing": "^8.0.0",
+    "@types/aws-lambda": "^8.10.107",
+    "@types/express": "^4.17.13",
+    "@types/jest": "27.0.2",
+    "@types/node": "^16.0.0",
+    "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.2.5",
+    "prettier": "^2.3.2",
+    "serverless-offline": "^11.1.2",
+    "serverless-plugin-typescript": "^2.1.4",
+    "source-map-support": "^0.5.20",
+    "supertest": "^6.3.0",
+    "ts-jest": "^27.0.3",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.10.1",
+    "typescript": "^4.3.5"
   },
-  "scripts": {
-    "debug": "SLS_DEBUG=* && node --inspect node_modules/serverless/bin/serverless offline",
-    "local": "sls offline"
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }

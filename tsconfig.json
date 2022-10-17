@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2017",
-    "outDir": ".build",
-    "moduleResolution": "node",
-    "lib": [
-      "es2015"
-    ],
-    "rootDir": "./"
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
   }
 }
