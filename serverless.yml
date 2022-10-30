@@ -6,15 +6,12 @@ provider:
   runtime: nodejs16.x
 
 functions:
-  main:
-    handler: src/service/api/handler.handler
+  hello:
+    handler: handler/api/index.handler
     events:
-      - http:
-          method: ANY
+      - httpApi:
           path: /
-      - http:
-          method: ANY
-          path: '{proxy+}'
+          method: get
 
 plugins:
   - serverless-plugin-typescript
