@@ -4,7 +4,9 @@ import {MikroOrmModule} from "@mikro-orm/nestjs";
 @Module({
     imports: [
         MikroOrmModule.forRoot({
-            dbName: 'reservation',
+            entities: ['./dist/entities'],
+            entitiesTs: ['./src/entities'],
+            dbName: 'my-db-name.sqlite3',
             type: 'mysql',
         }),
     ],
