@@ -4,3 +4,5 @@ export interface TicketFinder {
 
     findById(id: number): Promise<Ticket>
 }
+
+export const TicketFinder = Symbol("TicketFinder");

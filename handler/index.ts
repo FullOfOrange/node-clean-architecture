@@ -1,26 +1,16 @@
-import '../domain/configuration'
+import 'reflect-metadata'
+import '../domain'
 
-import {APIGatewayProxyEvent, APIGatewayProxyResult} from "aws-lambda";
-import {container, inject, injectable} from "tsyringe";
-import {TicketFinder} from "../domain/application/ticket/TicketFinder";
+import * as express from 'express'
+import * as serverless from 'serverless-http'
+import {ticketController} from "./ticket.controller";
 
-@injectable()
-class Handler {
+const app = express()
+app.use(express.json())
+app.use('/ticket', ticketController)
 
-    constructor(
-        @inject("TicketFinder") private ticketFinder: TicketFinder
-    ) {
-    }
+const sls = serverless(app);
 
-    public async hello(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
-        const ticket = await this.ticketFinder.findById(1);
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify(ticket),
-        };
-    }
-}
-
-export const handler = container.resolve(Handler)
-export const hello = handler.hello.bind(handler)
+export const handler = async (event, context) => {
+    return await sls(event, context);
+};

@@ -1,18 +1,14 @@
 export class Ticket {
 
-    id?: number
+    id?: number = undefined
     name: string
     limit: number
-    createdAt: Date
-    updatedAt: Date
-    deletedAt?: Date
+    createdAt: Date = new Date()
+    updatedAt: Date = new Date()
+    deletedAt?: Date = undefined
 
-    constructor(name: string, limit: number, createdAt: Date, updatedAt: Date) {
-        this.id = undefined
+    constructor(name: string, limit: number) {
         this.name = name
         this.limit = limit
-        this.createdAt = createdAt
-        this.updatedAt = updatedAt
-        this.deletedAt = undefined
     }
 }

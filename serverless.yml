@@ -7,11 +7,11 @@ provider:
 
 functions:
   hello:
-    handler: handler/index.hello
+    handler: handler/index.handler
     events:
       - httpApi:
-          path: /
-          method: get
+          path: '{proxy+}'
+          method: ANY
 
 plugins:
   - serverless-plugin-typescript
