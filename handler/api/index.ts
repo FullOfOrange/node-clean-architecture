@@ -1,13 +1,13 @@
 import 'reflect-metadata'
-import '../domain'
+import '../../domain'
 
 import * as express from 'express'
 import * as serverless from 'serverless-http'
-import {ticketController} from "./ticket.controller";
+import {TicketController} from "./controller/TicketController";
 
 const app = express()
 app.use(express.json())
-app.use('/ticket', ticketController)
+app.use('/ticket', TicketController)
 
 const sls = serverless(app);
 

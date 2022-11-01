@@ -1,6 +1,6 @@
 import {container} from "tsyringe";
-import {TicketService} from "./application/ticket/TicketService"
-import {TicketFinder} from "./application/ticket/TicketFinder";
+import {TicketService} from "./ticket/TicketService"
+import {TicketFinder} from "./ticket/TicketFinder";
 
 // Bean configurations
 export const applicationConfiguration = () => {
