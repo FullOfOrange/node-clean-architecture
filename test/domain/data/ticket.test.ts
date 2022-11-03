@@ -9,13 +9,12 @@ describe('ticket module', () => {
     let knex;
 
     test('test insert module', async () => {
-        const insertData: Partial<Tickets> = {
+        const ticket = await Tickets.query().insertAndFetch({
             name: 'test',
             count: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
-        }
-        const ticket = await Tickets.query().insertAndFetch(insertData)
+        })
         const result = await Tickets.query().select('*').where('id', ticket.id).first()
 
         expect(result).toStrictEqual(ticket)
