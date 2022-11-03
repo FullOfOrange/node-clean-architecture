@@ -1,4 +1,5 @@
 import knex from 'knex';
+import {knexSnakeCaseMappers} from "objection";
 
 export const connection = knex({
     client: 'mysql',
@@ -10,5 +11,6 @@ export const connection = knex({
         user : 'root',
         password : 'password',
         database : 'reservation'
-    }
+    },
+    ...knexSnakeCaseMappers()
 });

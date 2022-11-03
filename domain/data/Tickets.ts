@@ -1,19 +1,14 @@
-import {Model} from "objection";
+import {JSONSchema, Model} from "objection";
 
 export class Tickets extends Model {
 
+    id!: string
+    name!: string
+    count: number
+    createdAt: Date
+    updatedAt: Date
+    deletedAt?: Date
+
     static tableName = 'ticket'
     static idColumn = "id"
-    static jsonSchema = {
-        type: 'object',
-        required: ['name', 'limit'],
-        properties: {
-            id: {type: 'long'},
-            name: {type: 'string'}
-        }
-    }
-}
-
-const test = async () => {
-
 }
