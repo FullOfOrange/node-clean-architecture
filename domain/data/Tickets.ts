@@ -1,4 +1,5 @@
 import {JSONSchema, Model} from "objection";
+import {Ticket} from "../domain/ticket/Ticket";
 
 export class Tickets extends Model {
 
@@ -11,4 +12,16 @@ export class Tickets extends Model {
 
     static tableName = 'ticket'
     static idColumn = "id"
+
+    toTicket(): Ticket {
+        return new Ticket(
+            this.id,
+            this.name,
+            this.count,
+            this.createdAt,
+            this.updatedAt,
+            this.deletedAt,
+        )
+    }
 }
+

@@ -1,5 +1,7 @@
 import 'reflect-metadata'
 
 import {applicationConfiguration} from "./application/configuration";
+import {dataConfiguration} from "./data/configuration";
 
-applicationConfiguration()
+dataConfiguration();
+applicationConfiguration();

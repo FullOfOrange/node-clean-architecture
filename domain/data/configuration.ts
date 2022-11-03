@@ -1,7 +1,10 @@
 import knex from 'knex';
 import {knexSnakeCaseMappers} from "objection";
+import {container} from "tsyringe";
+import {TicketRepository} from "../domain/ticket/TicketRepository";
+import {KnexTicketRepository} from "./KnexTicketRepository";
 
-export const connection = knex({
+export const knexConnection = knex({
     client: 'mysql',
     version: '8.0.26',
     debug: true,
@@ -14,3 +17,7 @@ export const connection = knex({
     },
     ...knexSnakeCaseMappers()
 });
+
+export const dataConfiguration = () => {
+    container.register(TicketRepository, {useClass: KnexTicketRepository});
+}
