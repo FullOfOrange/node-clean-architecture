@@ -14,7 +14,11 @@ export class KnexTicketRepository implements TicketRepository {
             .where('id', id)
             .first()
 
-        return result?.toTicket()
+        if (result === undefined) {
+            return result
+        } else {
+            return result?.toTicket()
+        }
     }
 
     async save(ticket: Ticket, {trx}: { trx: Transaction }): Promise<Ticket> {
