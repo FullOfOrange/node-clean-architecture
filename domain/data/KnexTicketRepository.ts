@@ -1,13 +1,13 @@
 import {TicketRepository} from "../domain/ticket/TicketRepository";
 import {Ticket} from "../domain/ticket/Ticket";
-import {Knex} from "knex";
 import {Tickets} from "./Tickets";
 import {injectable} from "tsyringe";
+import {Transaction} from "./configuration";
 
 @injectable()
 export class KnexTicketRepository implements TicketRepository {
 
-    async findById(id: number, {trx}: { trx: Knex.Transaction }): Promise<Ticket | undefined> {
+    async findById(id: string, {trx}: { trx: Transaction }): Promise<Ticket | undefined> {
         const result = await Tickets
             .query(trx)
             .select('*')
@@ -17,7 +17,7 @@ export class KnexTicketRepository implements TicketRepository {
         return result?.toTicket()
     }
 
-    async save(ticket: Ticket, {trx}: { trx: Knex.Transaction }): Promise<Ticket> {
+    async save(ticket: Ticket, {trx}: { trx: Transaction }): Promise<Ticket> {
         const object: Partial<Tickets> = {
             id: ticket.id,
             name: ticket.name,
