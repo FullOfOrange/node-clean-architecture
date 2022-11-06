@@ -2,7 +2,7 @@ import * as Knex from 'knex';
 import {knexSnakeCaseMappers} from "objection";
 import {container} from "tsyringe";
 import {TicketRepository} from "../domain/ticket/TicketRepository";
-import {KnexTicketRepository} from "./KnexTicketRepository";
+import {KnexTicketRepository} from "./ticket/KnexTicketRepository";
 
 const connection = Knex.knex({
     client: 'mysql2',

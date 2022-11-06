@@ -14,5 +14,3 @@ exports.down = (knex) => {
     return knex.schema
         .dropTable("ticket");
 };
-
-exports.config = { transaction: false };

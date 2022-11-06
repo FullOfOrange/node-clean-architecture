@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 
 import {beforeAll, describe, expect, test} from "@jest/globals";
-import {Tickets} from "../../../../domain/data/Tickets";
+import {Tickets} from "../../../../domain/data/ticket/Tickets";
 import {MySqlContainer} from "testcontainers";
 import Knex from "knex";
 import {knexSnakeCaseMappers, Model} from "objection";
 import {TicketService} from "../../../../domain/application/ticket/TicketService";
 import {TicketFinder} from "../../../../domain/application/ticket/usecase/TicketFinder";
-import {KnexTicketRepository} from "../../../../domain/data/KnexTicketRepository";
+import {KnexTicketRepository} from "../../../../domain/data/ticket/KnexTicketRepository";
 import {Ticket} from "../../../../domain/domain/ticket/Ticket";
 
 describe('TicketService test', () => {

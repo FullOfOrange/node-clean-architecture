@@ -1,8 +1,8 @@
-import {TicketRepository} from "../domain/ticket/TicketRepository";
-import {Ticket} from "../domain/ticket/Ticket";
+import {TicketRepository} from "../../domain/ticket/TicketRepository";
+import {Ticket} from "../../domain/ticket/Ticket";
 import {Tickets} from "./Tickets";
 import {injectable} from "tsyringe";
-import {Transaction} from "./configuration";
+import {Transaction} from "../configuration";
 
 @injectable()
 export class KnexTicketRepository implements TicketRepository {
@@ -30,13 +30,7 @@ export class KnexTicketRepository implements TicketRepository {
             updatedAt: ticket.updatedAt,
             deletedAt: ticket.deletedAt,
         }
-
-        if (object.id === undefined) {
-            const insertedTicket = await Tickets.query(trx).insertAndFetch(object)
-            return insertedTicket.toTicket()
-        } else {
-            const updatedTicket = await Tickets.query(trx).updateAndFetch(object)
-            return updatedTicket.toTicket()
-        }
+        const result = await Tickets.query(trx).upsertGraphAndFetch(object)
+        return result.toTicket()
     }
 }

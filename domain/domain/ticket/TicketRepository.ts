@@ -1,5 +1,4 @@
 import {Ticket} from "./Ticket";
-import {Knex} from "knex";
 import {Transaction} from "../../data/configuration";
 
 export interface TicketRepository {

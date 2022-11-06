@@ -1,13 +1,17 @@
 import 'reflect-metadata'
 
-import '../../domain'
-import '../../domain/handler'
-
 import {SQSEvent, SQSHandler} from "aws-lambda";
 import {AsyncEvent} from "../../common/event/Event";
 import {TicketCreateEvent} from "../../domain/domain/DomainEvent";
 import {container} from "tsyringe";
 import {TicketHandler} from "../../domain/handler/TicketHandler";
+import {dataConfiguration} from "../../domain/data/configuration";
+import {applicationConfiguration} from "../../domain/application/configuration";
+import {handlerConfiguration} from "../../domain/handler/configuration";
+
+dataConfiguration()
+applicationConfiguration()
+handlerConfiguration()
 
 const ticketHandler: TicketHandler = container.resolve(TicketHandler)
 

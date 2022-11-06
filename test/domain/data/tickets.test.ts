@@ -1,5 +1,5 @@
 import {describe, expect, test, beforeAll} from '@jest/globals';
-import {Tickets} from "../../../domain/data/Tickets";
+import {Tickets} from "../../../domain/data/ticket/Tickets";
 import {MySqlContainer} from "testcontainers";
 import Knex from "knex";
 import {Model, knexSnakeCaseMappers} from "objection";

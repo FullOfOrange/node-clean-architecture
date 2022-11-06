@@ -1,5 +1,5 @@
 import {JSONSchema, Model} from "objection";
-import {Ticket} from "../domain/ticket/Ticket";
+import {Ticket} from "../../domain/ticket/Ticket";
 
 export class Tickets extends Model {
 
