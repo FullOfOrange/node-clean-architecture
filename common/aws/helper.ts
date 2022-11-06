@@ -1,4 +1,4 @@
-function SQS(queueName) {
+export function SQS(queueName) {
     if (!queueName) throw new Error("Invalid queue name");
     return Object.keys(this).reduce((proxy, key) => {
         proxy[key] = this[key].bind(SQS, queueName); // eslint-disable-line no-param-reassign

@@ -5,6 +5,8 @@ import {TicketRepository} from "../../domain/ticket/TicketRepository";
 import {Connection} from "../../data/configuration";
 import {TicketNotFoundError} from "../../domain/DomainError";
 import {TicketCreateCommand, TicketCreateProcessor} from "./TicketCreateProcessor";
+import {eventPublisher} from "../../../common/event/Event";
+import {TicketCreateEvent} from "../../domain/DomainEvent";
 
 @autoInjectable()
 export class TicketService implements TicketFinder, TicketCreateProcessor {
@@ -24,12 +26,16 @@ export class TicketService implements TicketFinder, TicketCreateProcessor {
     }
 
     async process(command: TicketCreateCommand): Promise<string> {
-        return await this.conn.transaction(async trx => {
+        const ticketId = await this.conn.transaction(async trx => {
             const ticket = await this.ticketRepository.save(
                 new Ticket(command.name, command.count),
                 {trx: trx}
             )
             return ticket.id!!
         })
+
+        await eventPublisher<{ ticketId: string }>(new TicketCreateEvent(ticketId))
+
+        return ticketId
     }
 }

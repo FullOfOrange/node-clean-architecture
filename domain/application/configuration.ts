@@ -6,5 +6,5 @@ import {TicketCreateProcessor} from "./ticket/TicketCreateProcessor";
 // Bean configurations
 export const applicationConfiguration = () => {
     container.registerSingleton(TicketFinder, TicketService);
-    // container.registerSingleton(TicketCreateProcessor, TicketService)
+    container.registerSingleton(TicketCreateProcessor, TicketService)
 }

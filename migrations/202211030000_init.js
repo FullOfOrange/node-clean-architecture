@@ -1,6 +1,4 @@
-import {Knex} from "knex";
-
-export const up = (knex: Knex) => {
+exports.up = (knex) => {
     return knex.schema
         .createTable('ticket', function (table) {
             table.bigIncrements('id', { primaryKey: true });
@@ -12,9 +10,9 @@ export const up = (knex: Knex) => {
         })
 };
 
-export const down = (knex: Knex) => {
+exports.down = (knex) => {
     return knex.schema
         .dropTable("ticket");
 };
 
-export const config = { transaction: false };
+exports.config = { transaction: false };

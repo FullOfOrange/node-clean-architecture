@@ -43,7 +43,6 @@ functions:
     description: worker server call by sqs
     events:
       - sqs:
-          queueName: workerQueue
           arn:
             Fn::GetAtt:
               - workerQueue
@@ -57,7 +56,7 @@ custom:
     autoCreate: true
     apiVersion: "2012-11-05"
     endpoint: http://0.0.0.0:9324
-    region: ap-northeast-2
+    region: ${self:provider.region}
     skipCacheInvalidation: false
 
 resources:
@@ -65,9 +64,9 @@ resources:
     workerQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: ${self:service}-${self:provider.stage}-sqs-workerQueue
+        QueueName: ${self:provider.stage}-sqs-workerQueue
 
 plugins:
   - serverless-plugin-typescript
-#  - serverless-offline-sqs
+  - serverless-offline-sqs
   - serverless-offline
