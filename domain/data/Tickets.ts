@@ -15,9 +15,9 @@ export class Tickets extends Model {
 
     toTicket(): Ticket {
         return new Ticket(
-            this.id,
             this.name,
             this.count,
+            this.id,
             this.createdAt,
             this.updatedAt,
             this.deletedAt,

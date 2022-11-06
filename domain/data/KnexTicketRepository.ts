@@ -31,7 +31,12 @@ export class KnexTicketRepository implements TicketRepository {
             deletedAt: ticket.deletedAt,
         }
 
-        const updatedTicket = await Tickets.query(trx).upsertGraphAndFetch(object)
-        return updatedTicket.toTicket()
+        if (object.id === undefined) {
+            const insertedTicket = await Tickets.query(trx).insertAndFetch(object)
+            return insertedTicket.toTicket()
+        } else {
+            const updatedTicket = await Tickets.query(trx).updateAndFetch(object)
+            return updatedTicket.toTicket()
+        }
     }
 }

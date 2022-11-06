@@ -8,18 +8,18 @@ export class Ticket {
     deletedAt?: Date = undefined
 
     constructor(
-        id: string | undefined,
         name: string,
         count: number,
-        createdAt: Date,
-        updatedAt: Date,
+        id?: string,
+        createdAt?: Date,
+        updatedAt?: Date,
         deletedAt?: Date,
     ) {
-        this.id = id
+        this.id = id ?? undefined
         this.name = name
         this.count = count
-        this.createdAt = createdAt
-        this.updatedAt = updatedAt
+        this.createdAt = createdAt ?? new Date()
+        this.updatedAt = updatedAt ?? new Date()
         this.deletedAt = deletedAt
     }
 }

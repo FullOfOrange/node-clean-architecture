@@ -1,4 +1,4 @@
-import {ExpressError} from "../../library/Errors";
+import {ExpressError} from "../../common/Errors";
 
 export class TicketNotFoundError extends ExpressError {
     constructor() {

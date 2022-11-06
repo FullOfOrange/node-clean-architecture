@@ -4,7 +4,7 @@ import {container} from "tsyringe";
 import {TicketRepository} from "../domain/ticket/TicketRepository";
 import {KnexTicketRepository} from "./KnexTicketRepository";
 
-export const connection = Knex.knex({
+const connection = Knex.knex({
     client: 'mysql2',
     version: '8.0.26',
     debug: true,
@@ -15,6 +15,10 @@ export const connection = Knex.knex({
         password: 'password',
         database: 'reservation'
     },
+    // pool: {
+    //     min: 2,
+    //     max: 5
+    // },
     ...knexSnakeCaseMappers()
 });
 
@@ -23,6 +27,6 @@ export type Connection = Knex.Knex<any, unknown>;
 export type Transaction = Knex.Knex.Transaction
 
 export const dataConfiguration = () => {
-    container.register(TicketRepository, {useClass: KnexTicketRepository});
+    container.registerSingleton(TicketRepository, KnexTicketRepository);
     container.register(Connection, {useValue: connection});
 }

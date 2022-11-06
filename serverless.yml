@@ -4,15 +4,70 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs16.x
+  region: ap-northeast-2
+  stage: ${opt:stage, "development"}
+  environment:
+    NODE_ENV: ${self:provider.stage}
+    AWS_DEPLOY_REGION: ${self:provider.region}
+    AWS_ACCOUNT_ID: "#{AWS::AccountId}"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - SNS:Publish
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - SQS:SendMessage
+        - SQS:DeleteMessage
+        - SQS:ReceiveMessage
+        - SQS:GetQueueUrl
+        - SQS:ListQueues
+      Resource: "*"
 
 functions:
-  hello:
+  api:
     handler: handler/api/index.handler
+    description: main api server
     events:
       - httpApi:
           path: '{proxy+}'
           method: ANY
 
+  worker:
+    handler: handler/worker/index.handler
+    description: worker server call by sqs
+    events:
+      - sqs:
+          queueName: workerQueue
+          arn:
+            Fn::GetAtt:
+              - workerQueue
+              - Arn
+
+package:
+  individually: true
+
+custom:
+  serverless-offline-sqs:
+    autoCreate: true
+    apiVersion: "2012-11-05"
+    endpoint: http://0.0.0.0:9324
+    region: ap-northeast-2
+    skipCacheInvalidation: false
+
+resources:
+  Resources:
+    workerQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:service}-${self:provider.stage}-sqs-workerQueue
+
 plugins:
   - serverless-plugin-typescript
+#  - serverless-offline-sqs
   - serverless-offline
