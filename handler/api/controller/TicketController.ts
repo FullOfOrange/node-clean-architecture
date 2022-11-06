@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import {container} from "tsyringe";
-import {TicketFinder} from "../../../domain/application/ticket/TicketFinder";
-import {TicketCreateProcessor} from "../../../domain/application/ticket/TicketCreateProcessor";
+import {TicketFinder} from "../../../domain/application/ticket/usecase/TicketFinder";
+import {TicketCreateProcessor} from "../../../domain/application/ticket/usecase/TicketCreateProcessor";
 
 const ticketController = Router()
 

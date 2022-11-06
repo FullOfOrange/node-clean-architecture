@@ -6,7 +6,7 @@ import {MySqlContainer} from "testcontainers";
 import Knex from "knex";
 import {knexSnakeCaseMappers, Model} from "objection";
 import {TicketService} from "../../../../domain/application/ticket/TicketService";
-import {TicketFinder} from "../../../../domain/application/ticket/TicketFinder";
+import {TicketFinder} from "../../../../domain/application/ticket/usecase/TicketFinder";
 import {KnexTicketRepository} from "../../../../domain/data/KnexTicketRepository";
 import {Ticket} from "../../../../domain/domain/ticket/Ticket";
 

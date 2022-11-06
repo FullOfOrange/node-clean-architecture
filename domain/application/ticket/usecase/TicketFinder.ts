@@ -1,4 +1,4 @@
-import {Ticket} from "../../domain/ticket/Ticket";
+import {Ticket} from "../../../domain/ticket/Ticket";
 
 export interface TicketFinder {
 

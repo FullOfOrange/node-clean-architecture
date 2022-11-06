@@ -15,10 +15,10 @@ const connection = Knex.knex({
         password: 'password',
         database: 'reservation'
     },
-    // pool: {
-    //     min: 2,
-    //     max: 5
-    // },
+    pool: {
+        min: 2,
+        max: 5
+    },
     ...knexSnakeCaseMappers()
 });
 
