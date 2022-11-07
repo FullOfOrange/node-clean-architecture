@@ -6,6 +6,7 @@ export class Tickets extends Model {
     id!: string
     name!: string
     count: number
+    createdBy: string
     createdAt: Date
     updatedAt: Date
     deletedAt?: Date
@@ -14,14 +15,15 @@ export class Tickets extends Model {
     static idColumn = "id"
 
     toTicket(): Ticket {
-        return new Ticket(
-            this.name,
-            this.count,
-            this.id,
-            this.createdAt,
-            this.updatedAt,
-            this.deletedAt,
-        )
+        return new Ticket({
+            id: this.id,
+            name: this.name,
+            count: this.count,
+            createdBy: this.createdBy,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
+            deletedAt: this.deletedAt,
+        })
     }
 }
 

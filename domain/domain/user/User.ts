@@ -8,13 +8,21 @@ export class User {
     updatedAt: Date = new Date()
     deletedAt?: Date = undefined
 
-    constructor(
-        email: string,
+    constructor(input: {
         id?: string,
+        email: string,
         createdAt?: Date,
         updatedAt?: Date,
         deletedAt?: Date,
-    ) {
+    }) {
+        const {
+            id,
+            email,
+            createdAt,
+            updatedAt,
+            deletedAt
+        } = input
+
         this.id = id ?? undefined
         this.email = email
         this.createdAt = createdAt ?? new Date()

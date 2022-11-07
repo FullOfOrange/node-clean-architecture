@@ -6,6 +6,7 @@ export interface TicketCreateProcessor {
 export type TicketCreateCommand = {
     name: string,
     count: number,
+    requesterId: string,
 }
 
 export const TicketCreateProcessor = Symbol("TicketCreateProcessor")

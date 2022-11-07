@@ -12,12 +12,12 @@ export class Users extends Model {
     static idColumn = "id"
 
     toUser(): User {
-        return new User(
-            this.email,
-            this.id,
-            this.createdAt,
-            this.updatedAt,
-            this.deletedAt,
-        )
+        return new User({
+            id: this.id,
+            email: this.email,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
+            deletedAt: this.deletedAt,
+        })
     }
 }

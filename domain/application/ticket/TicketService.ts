@@ -7,6 +7,7 @@ import {TicketNotFoundError} from "../../domain/DomainError";
 import {TicketCreateCommand, TicketCreateProcessor} from "./usecase/TicketCreateProcessor";
 import {eventPublisher} from "../../../common/event/Event";
 import {TicketCreateEvent} from "../../domain/DomainEvent";
+import {UserRepository} from "../../domain/user/UserRepository";
 
 @singleton()
 export class TicketService implements TicketFinder, TicketCreateProcessor {
@@ -28,7 +29,11 @@ export class TicketService implements TicketFinder, TicketCreateProcessor {
     async process(command: TicketCreateCommand): Promise<string> {
         const ticketId = await this.conn.transaction(async trx => {
             const ticket = await this.ticketRepository.save(
-                new Ticket(command.name, command.count),
+                new Ticket({
+                    name: command.name,
+                    count: command.count,
+                    createdBy: command.requesterId
+                }),
                 {trx: trx}
             )
             return ticket.requireId()

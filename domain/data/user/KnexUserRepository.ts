@@ -46,6 +46,4 @@ export class KnexUserRepository implements UserRepository {
         const result = await Users.query(trx).upsertGraphAndFetch(object)
         return result.toUser()
     }
-
-
 }
