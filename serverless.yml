@@ -7,6 +7,7 @@ provider:
   region: ap-northeast-2
   stage: ${opt:stage, "development"}
   environment:
+    JWT_SECRET: "secret"
     NODE_ENV: ${self:provider.stage}
     AWS_DEPLOY_REGION: ${self:provider.region}
     AWS_ACCOUNT_ID: "#{AWS::AccountId}"

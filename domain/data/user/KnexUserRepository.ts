@@ -5,13 +5,27 @@ import {User} from "../../domain/user/User";
 import {Users} from "./Users";
 
 @injectable()
-export class knexUserRepository implements UserRepository {
+export class KnexUserRepository implements UserRepository {
 
     async findById(id: string, {trx}: { trx: Transaction }): Promise<User | undefined> {
         const result = await Users
             .query(trx)
             .select('*')
             .where('id', id)
+            .first()
+
+        if (result === undefined) {
+            return result
+        } else {
+            return result?.toUser()
+        }
+    }
+
+    async findByEmail(email: string, {trx}: { trx: Transaction }): Promise<User | undefined> {
+        const result = await Users
+            .query(trx)
+            .select('*')
+            .where('email', email)
             .first()
 
         if (result === undefined) {
@@ -32,4 +46,6 @@ export class knexUserRepository implements UserRepository {
         const result = await Users.query(trx).upsertGraphAndFetch(object)
         return result.toUser()
     }
+
+
 }

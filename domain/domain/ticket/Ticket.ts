@@ -1,3 +1,5 @@
+import {TicketNotFoundError} from "../DomainError";
+
 export class Ticket {
 
     id?: string = undefined
@@ -21,5 +23,10 @@ export class Ticket {
         this.createdAt = createdAt ?? new Date()
         this.updatedAt = updatedAt ?? new Date()
         this.deletedAt = deletedAt
+    }
+
+    requireId(): string {
+        if (this.id === undefined) throw new TicketNotFoundError()
+        return this.id
     }
 }

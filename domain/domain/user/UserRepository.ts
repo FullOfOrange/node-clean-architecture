@@ -5,6 +5,8 @@ export interface UserRepository {
 
     findById(id: string, {trx}: { trx: Transaction }): Promise<User | undefined>
 
+    findByEmail(email: string, {trx}: { trx: Transaction }): Promise<User | undefined>
+
     save(user: User, {trx}: { trx: Transaction }): Promise<User>
 }
 

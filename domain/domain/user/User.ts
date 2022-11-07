@@ -1,3 +1,5 @@
+import {UserNotFoundError} from "../DomainError";
+
 export class User {
 
     id?: string = undefined
@@ -18,5 +20,10 @@ export class User {
         this.createdAt = createdAt ?? new Date()
         this.updatedAt = updatedAt ?? new Date()
         this.deletedAt = deletedAt
+    }
+
+    requireId(): string {
+        if (this.id === undefined) throw new UserNotFoundError()
+        return this.id
     }
 }
