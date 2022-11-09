@@ -6,7 +6,7 @@ export function SQS(queueName) {
     });
 }
 
-SQS.getUrl = function getUrl(queueName) {
+SQS.getUrl = (queueName: string) => {
     const {
         NODE_ENV, AWS_DEPLOY_REGION, AWS_ACCOUNT_ID,
     } = process.env;

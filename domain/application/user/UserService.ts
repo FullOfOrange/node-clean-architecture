@@ -37,7 +37,9 @@ export class UserService implements UserFinder, UserCreateProcessor {
 
             if (existUser !== undefined) throw new UserAlreadyExistError()
 
-            const newUser = new User(command.email)
+            const newUser = new User({
+                email: command.email,
+            })
             const user = await this.userRepository.save(newUser, {trx: trx})
             return user.requireId()
         });

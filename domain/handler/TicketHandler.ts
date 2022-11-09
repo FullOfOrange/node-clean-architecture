@@ -1,15 +1,21 @@
 import {TicketCreateEvent} from "../domain/DomainEvent";
+import {EventListener} from "../../common/event/Event";
+import {inject, singleton} from "tsyringe";
+import {TicketFinder} from "../application/ticket/usecase/TicketFinder";
 
-export const TicketHandler = Symbol('TicketHandler')
+@singleton()
+export class TicketEventHandler {
 
-export interface TicketHandler {
-    ticketCreate(event: TicketCreateEvent): void
-}
+    constructor(
+        @inject(TicketFinder) private ticketFinder: TicketFinder
+    ) {
+    }
 
-export class TicketEventHandler implements TicketHandler {
+    @EventListener(TicketCreateEvent)
+    async ticketCreate(event: TicketCreateEvent) {
 
-    ticketCreate(event: TicketCreateEvent) {
-        console.log(event.payload.ticketId)
+        const ticket = await this.ticketFinder.findById(event.payload.ticketId)
+        console.log(ticket)
     }
 }
 

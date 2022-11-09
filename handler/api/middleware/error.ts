@@ -2,8 +2,6 @@ import {NextFunction, Request, Response} from "express";
 import {ExpressError} from "../../../common/Errors";
 
 export const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.log(err)
-
     if (err instanceof ExpressError) {
         return res
             .status(err.status)

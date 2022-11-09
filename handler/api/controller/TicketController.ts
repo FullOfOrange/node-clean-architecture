@@ -56,7 +56,7 @@ type TicketCreateResponse = {
  */
 ticketController.post("/", needAuthMiddleware, async (req, res: Response<TicketCreateResponse, AuthResponseLocals>) => {
     const {name, count} = req.body as TicketCreateRequest
-    const id = await ticketCreateProcessor.process({name, count})
+    const id = await ticketCreateProcessor.process({name, count, requesterId: res.locals.user!!.requireId()})
     const ticket = await ticketFinder.findById(id)
 
     res.send({
