@@ -1,13 +1,12 @@
-import {Transaction} from "../../data/configuration";
 import {User} from "./User";
 
 export interface UserRepository {
 
-    findById(id: string, {trx}: { trx: Transaction }): Promise<User | undefined>
+    findById(id: string): Promise<User | undefined>
 
-    findByEmail(email: string, {trx}: { trx: Transaction }): Promise<User | undefined>
+    findByEmail(email: string): Promise<User | undefined>
 
-    save(user: User, {trx}: { trx: Transaction }): Promise<User>
+    save(user: User): Promise<User>
 }
 
 export const UserRepository = Symbol("UserRepository");

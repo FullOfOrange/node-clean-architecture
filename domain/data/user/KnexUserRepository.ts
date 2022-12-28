@@ -1,13 +1,20 @@
-import {injectable} from "tsyringe";
-import {Transaction} from "../configuration";
+import {inject, injectable} from "tsyringe";
 import {UserRepository} from "../../domain/user/UserRepository";
 import {User} from "../../domain/user/User";
 import {Users} from "./Users";
+import {TransactionManager} from "../../../common/transaction/TransactionManager";
 
 @injectable()
 export class KnexUserRepository implements UserRepository {
 
-    async findById(id: string, {trx}: { trx: Transaction }): Promise<User | undefined> {
+    constructor(
+        @inject(TransactionManager) private transactionManager: TransactionManager
+    ) {
+    }
+
+    async findById(id: string): Promise<User | undefined> {
+        const trx = this.transactionManager.getTransaction()
+
         const result = await Users
             .query(trx)
             .select('*')
@@ -21,7 +28,9 @@ export class KnexUserRepository implements UserRepository {
         }
     }
 
-    async findByEmail(email: string, {trx}: { trx: Transaction }): Promise<User | undefined> {
+    async findByEmail(email: string): Promise<User | undefined> {
+        const trx = this.transactionManager.getTransaction()
+
         const result = await Users
             .query(trx)
             .select('*')
@@ -35,7 +44,9 @@ export class KnexUserRepository implements UserRepository {
         }
     }
 
-    async save(user: User, {trx}: { trx: Transaction }): Promise<User> {
+    async save(user: User): Promise<User> {
+        const trx = this.transactionManager.getTransaction()
+
         const object: Partial<Users> = {
             id: user.id,
             email: user.email,

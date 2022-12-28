@@ -1,11 +1,10 @@
 import {Ticket} from "./Ticket";
-import {Transaction} from "../../data/configuration";
 
 export interface TicketRepository {
 
-    findById(id: string, {trx}: { trx: Transaction }): Promise<Ticket | undefined>
+    findById(id: string): Promise<Ticket | undefined>
 
-    save(ticket: Ticket, {trx}: { trx: Transaction }): Promise<Ticket>
+    save(ticket: Ticket): Promise<Ticket>
 }
 
 export const TicketRepository = Symbol("TicketRepository");

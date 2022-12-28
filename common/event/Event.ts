@@ -3,6 +3,8 @@ import * as AWSHelper from '../aws/helper'
 import {container} from "tsyringe";
 
 const sqs = new SQS({region: 'ap-northeast-2'})
+const eventClassList: Array<any> = [];
+const eventFunctionList: Array<EventFunctionPayload> = [];
 
 type AsyncEventPayload = {
     className: string,
@@ -15,15 +17,28 @@ type EventFunctionPayload = {
     functionName: string,
 }
 
-const eventClassList: Array<any> = [];
-const eventFunctionList: Array<EventFunctionPayload> = [];
+export enum AsyncEventTopicEnum {
+    DEFAUlT = 'workerQueue',
+    FIFO = 'workerFIFOQueue'
+}
+
+export class AsyncEvent<T> {
+    topic: AsyncEventTopicEnum = AsyncEventTopicEnum.DEFAUlT
+    payload: T
+
+    copyInto(jsonObject: string) {
+        const obj: { name: string, payload: T } = JSON.parse(jsonObject)
+        this.payload = obj.payload
+    }
+}
 
 /**
  * Method Decorator
  * @param eventClass
  * @constructor
  */
-export function EventListener(eventClass) {
+export function EventListener(eventClass: Function) {
+    // 이벤트 클래스를 받아 주입
     eventClassList.push(eventClass)
 
     return function (target: any, key: string, desc: PropertyDescriptor): void {
@@ -59,30 +74,22 @@ export const eventPublisher = async <T extends object>(event: AsyncEvent<T>) => 
  */
 export async function runEvent(eventPayload: string) {
     const object: AsyncEventPayload = JSON.parse(eventPayload)
+    // Decorator 에 의해 저장된 이벤트 클래스 꺼냄
     const findEvent = eventClassList.find((event) => event.name === object.className)
+    // 이벤트 없음
+    if (findEvent === undefined) return
+    // 새로운 인스턴스 생성
     const event = new findEvent()
+    // 데이터 주입
     event.copyInto(object.eventObject)
 
+    // 등록된 함수 리스트에서 함수 꺼내기
     const foundFunction = eventFunctionList.find(eventFunc => eventFunc.eventClass === event.constructor.name)
-    if (foundFunction !== undefined) {
-        const handlerInstance = container.resolve<any>(foundFunction.className)
-        if (handlerInstance !== undefined) {
-            await handlerInstance[foundFunction.functionName](event)
-        }
-    }
-}
+    // 만약 등록 안되어있는 이벤트라면 스킵
+    if (foundFunction === undefined) return
 
-export enum AsyncEventTopicEnum {
-    DEFAUlT = 'workerQueue',
-    FIFO = 'workerFIFOQueue'
-}
+    const handlerInstance = container.resolve<any>(foundFunction.className)
+    if (handlerInstance !== undefined) return
 
-export class AsyncEvent<T> {
-    topic: AsyncEventTopicEnum = AsyncEventTopicEnum.DEFAUlT
-    payload: T
-
-    copyInto(jsonObject: string) {
-        const obj: { name: string, payload: T } = JSON.parse(jsonObject)
-        this.payload = obj.payload
-    }
+    await handlerInstance[foundFunction.functionName](event)
 }

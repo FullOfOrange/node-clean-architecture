@@ -10,8 +10,6 @@ dataConfiguration()
 applicationConfiguration()
 handlerConfiguration()
 
-
 export const handler: SQSHandler = async (sqsEvent: SQSEvent) => await runEvent(sqsEvent.Records[0].body)
 
-export const fifoHandler: SQSHandler = async (sqsEvent: SQSEvent) => {
-}
+export const fifoHandler: SQSHandler = async (sqsEvent: SQSEvent) => await runEvent(sqsEvent.Records[0].body)

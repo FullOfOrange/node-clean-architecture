@@ -2,7 +2,7 @@ version: "3.7"
 services:
   mysql:
     image: mysql:8.0.26
-    container_name: lambda-reservation-mysql
+    container_name: node-mysql
     ports:
       - "13306:3306"
     environment:
@@ -13,7 +13,7 @@ services:
     restart: always
 
   queue:
-    container_name: lambda-reservation-queue
+    container_name: node-queue
     image: softwaremill/elasticmq:latest
     ports:
       - 9324:9324
