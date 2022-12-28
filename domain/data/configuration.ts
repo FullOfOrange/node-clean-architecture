@@ -5,6 +5,8 @@ import {TicketRepository} from "../domain/ticket/TicketRepository";
 import {KnexTicketRepository} from "./ticket/KnexTicketRepository";
 import {UserRepository} from "../domain/user/UserRepository";
 import {KnexUserRepository} from "./user/KnexUserRepository";
+import {TransactionManager} from "../../common/transaction/TransactionManager";
+import {KnexTransactionManager} from "./KnexTransactionManager";
 
 export const connection = Knex.knex({
     client: 'mysql2',
@@ -27,4 +29,5 @@ export const connection = Knex.knex({
 export const dataConfiguration = () => {
     container.registerSingleton(TicketRepository, KnexTicketRepository);
     container.registerSingleton(UserRepository, KnexUserRepository);
+    container.registerSingleton(TransactionManager, KnexTransactionManager)
 }

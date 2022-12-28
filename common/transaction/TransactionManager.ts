@@ -2,7 +2,7 @@ import {Knex} from "knex";
 
 export interface TransactionManager {
 
-    init<T>(callback: () => Promise<T>): Promise<T>
+    init<T>(callback: (trx: Transaction) => Promise<T>): Promise<T>
 
     getTransaction(): Transaction | undefined
 }

@@ -1,10 +1,9 @@
-import {container} from "tsyringe";
 import {AsyncLocalStorage} from "node:async_hooks";
 import {Knex} from "knex";
-import {connection} from "../../domain/data/configuration";
-import {TransactionManager} from "./TransactionManager";
+import {connection} from "./configuration";
+import {TransactionManager} from "../../common/transaction/TransactionManager";
 
-class KnexTransactionManager implements TransactionManager {
+export class KnexTransactionManager implements TransactionManager {
 
     private asyncLocalStorage: AsyncLocalStorage<Knex.Transaction>;
 
@@ -12,9 +11,9 @@ class KnexTransactionManager implements TransactionManager {
         this.asyncLocalStorage = new AsyncLocalStorage();
     }
 
-    async init<T>(callback: () => Promise<T>): Promise<T> {
+    async init<T>(callback: (trx: Knex.Transaction) => Promise<T>): Promise<T> {
         return await connection.transaction(async trx => {
-            return await this.asyncLocalStorage.run(trx, callback)
+            return await this.asyncLocalStorage.run(trx, async () => await callback(trx))
         })
     }
 
@@ -22,5 +21,3 @@ class KnexTransactionManager implements TransactionManager {
         return this.asyncLocalStorage.getStore()
     }
 }
-
-container.registerSingleton(TransactionManager, KnexTransactionManager)
