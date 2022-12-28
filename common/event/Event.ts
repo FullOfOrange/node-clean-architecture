@@ -76,7 +76,6 @@ export async function runEvent(eventPayload: string) {
     const object: AsyncEventPayload = JSON.parse(eventPayload)
     // Decorator 에 의해 저장된 이벤트 클래스 꺼냄
     const findEvent = eventClassList.find((event) => event.name === object.className)
-    // 이벤트 없음
     if (findEvent === undefined) return
     // 새로운 인스턴스 생성
     const event = new findEvent()

@@ -19,23 +19,13 @@ export class Ticket {
         updatedAt?: Date,
         deletedAt?: Date,
     }) {
-        const {
-            id,
-            name,
-            count,
-            createdBy,
-            createdAt,
-            updatedAt,
-            deletedAt
-        } = input
-
-        this.id = id ?? undefined
-        this.name = name
-        this.count = count
-        this.createdBy = createdBy
-        this.createdAt = createdAt ?? new Date()
-        this.updatedAt = updatedAt ?? new Date()
-        this.deletedAt = deletedAt
+        this.id = input.id ?? undefined
+        this.name = input.name
+        this.count = input.count
+        this.createdBy = input.createdBy
+        this.createdAt = input.createdAt ?? new Date()
+        this.updatedAt = input.updatedAt ?? new Date()
+        this.deletedAt = input.deletedAt
     }
 
     requireId(): string {

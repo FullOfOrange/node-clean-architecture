@@ -1,4 +1,4 @@
-import {TicketFinder} from "./usecase/TicketFinder";
+import {TicketDetail, TicketFinder} from "./usecase/TicketFinder";
 import {Ticket} from "../../domain/ticket/Ticket";
 import {inject, singleton} from "tsyringe";
 import {TicketRepository} from "../../domain/ticket/TicketRepository";
@@ -17,12 +17,14 @@ export class TicketService implements TicketFinder, TicketCreateProcessor {
     ) {
     }
 
-    async findById(id: string): Promise<Ticket> {
-        return await this.transactionManager.init(async () => {
+    async findById(id: string): Promise<TicketDetail> {
+        const ticket = await this.transactionManager.init(async () => {
             const ticket = await this.ticketRepository.findById(id)
             if (ticket === undefined) throw new TicketNotFoundError()
             return ticket
         })
+
+        return new TicketDetail(ticket)
     }
 
     async process(command: TicketCreateCommand): Promise<string> {

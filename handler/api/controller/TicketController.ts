@@ -28,7 +28,7 @@ ticketController.get("/:ticketId", needAuthMiddleware, async (req, res: Response
 
     res.send({
         ticket: {
-            id: ticket.requireId(),
+            id: ticket.id,
             name: ticket.name,
             count: ticket.count,
             createdAt: ticket.createdAt,
@@ -61,7 +61,7 @@ ticketController.post("/", needAuthMiddleware, async (req, res: Response<TicketC
 
     res.send({
         ticket: {
-            id: ticket.requireId(),
+            id: ticket.id,
             name: ticket.name,
             count: ticket.count,
             createdAt: ticket.createdAt,
