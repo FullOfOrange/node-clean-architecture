@@ -12,6 +12,10 @@ export class KnexTransactionManager implements TransactionManager {
     }
 
     async init<T>(callback: (trx: Knex.Transaction) => Promise<T>): Promise<T> {
+        if (this.asyncLocalStorage.getStore() !== undefined) {
+            return await callback(this.asyncLocalStorage.getStore()!)
+        }
+
         return await connection.transaction(async trx => {
             return await this.asyncLocalStorage.run(trx, async () => await callback(trx))
         })
